@@ -1,2 +1,2 @@
-# photo-sharing-app
-Demo of a real time photo sharing app with pusher and cloudinary
+# Real Time Photo Sharing App
+Demo of a real time photo sharing app with Pusher and Cloudinary
