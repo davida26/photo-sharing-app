@@ -5,7 +5,7 @@ class PhotoController < ApplicationController
 
   def store
       # upload image to cloudinary
-      @value = Cloudinary::Uploader.upload(params[:image])
+      @value = Cloudinary::Uploader.upload(params[:image], :resource_type => "image")
       
       # create a new post object and save to db
       @post = Post.new({:link => @value['secure_url'], :caption => params[:caption], :likes => params[:likes]})
@@ -23,4 +23,14 @@ class PhotoController < ApplicationController
       
       redirect_to('/')
   end
+  
+  def destroy
+    Cloudinary::Uploader.destroy(params[:target])
+    Post.where(link: params[:target]).destroy_all
+
+    flash[:success] = "Photo Deleted"
+    redirect_to('/')
+  end
+  
+  
 end
