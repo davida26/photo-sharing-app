@@ -13,12 +13,32 @@
                 <input type="submit" value="Upload">
             </div>
         </form>
-        <div class="images">
-            <div class="post">
-                <div>
-                    <img class="post-image" src="https://pbs.twimg.com/media/DOXI0IEXkAAkokm.jpg">
-                </div>
-                <p class="post-caption">Living my best life</p>
-            </div>
+        <div class="images" id="post_section">
+          <% @posts.each do |post| %>
+              <div class="post">
+                      <div>
+                          <img class="post-image" src="<%= post.link %>">
+                      </div>
+                      <p class="post-caption"><%= post.caption %></p>
+              </div>
+          <% end %>
         </div>
     </div>
+    
+    <script>
+        var channel = pusher.subscribe('posts-channel');
+        channel.bind('new-post', function(data) {
+            let post_link = data.link;
+            let post_caption = data.caption;
+            let div = document.getElementById('post_section');
+            let new_content = document.createElement("div");
+            new_content.innerHTML = `
+                <div class="post">
+                    <div>
+                        <img class="post-image" src="${post_link}">
+                    </div>
+                    <p class="post-caption"> ${post_caption}</p>
+                </div>`;
+            div.insertBefore(new_content, div.firstChild);
+        });
+    </script>  

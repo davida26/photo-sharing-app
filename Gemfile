@@ -30,6 +30,9 @@ gem 'jbuilder', '~> 2.5'
 # Cloudinary Gem
 gem 'cloudinary'
 
+# Pusher Gem
+gem 'pusher'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
